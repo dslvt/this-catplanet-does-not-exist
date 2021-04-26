@@ -90,4 +90,4 @@ def manual_sphere(image_file):
     [os.remove(f) for f in os.listdir(out_path) if f.endswith(ext)]
 
 
-manual_sphere('./model/input.jpg')
+manual_sphere('./image_smooth.jpg')
