@@ -10,6 +10,8 @@ import time
 import hashlib
 import os
 import re
+from model.generator import generate_image
+import ray
 
 
 from telegram import __version__ as TG_VER
@@ -29,7 +31,7 @@ from telegram import ForceReply, Update, InlineKeyboardButton, InlineKeyboardMar
 from telegram.ext import Application, CommandHandler, ContextTypes, MessageHandler, filters, ConversationHandler, CallbackQueryHandler
 import random
 from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove, Update
-
+ray.init()
 
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
@@ -42,7 +44,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 
 async def get_random_cat(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    await update.message.reply_document(document=open('aa.gif', 'rb'))
+    image_path = generate_image()
+    await update.message.reply_document(document=open(image_path, 'rb'))
 
 
 def main() -> None:

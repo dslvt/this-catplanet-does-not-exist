@@ -12,7 +12,7 @@ fps = 20
 prefix = 'ani'
 ext = '.png'
 
-
+#TODO: use FLAGS to input data
 def manual_sphere(image_file):
     # caveat 1: flip the input image along its first axis
     img = plt.imread(image_file)  # shape (N,M,3), flip along first dim
