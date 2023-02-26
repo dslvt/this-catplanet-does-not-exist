@@ -1,2 +1,2 @@
 def generate_image():
-    return 'aa.gif'
+    return 'ani.gif'

@@ -1,73 +1,23 @@
 from PIL import Image
 import numpy as np
 
-a = 0.5
-b = 2
-n = 24
-k = 2
 
-image_path = './model/input2.jpg'
-im = Image.open(image_path, 'r')
-img = im.load()
-h, w = im.size
+border = 20
 
-for row in range(n):
-    for col in range(h):
-        # right
-        pos = w - n + row
-        # rl
-        sm1 = np.array([0, 0, 0])
-        for it in range(n):
-            for clr in range(3):
-                sm1[clr] += img[pos-it, col][clr] * (1 - it / n)
+image_path = './model/input1.jpg'
+# im = Image.open(image_path, 'r')
+# img = im.load()
+img = np.array(Image.open(image_path, 'r'))
+w, h, c = img.shape
 
-        for clr in range(3):
-            sm1[clr] = 2 * sm1[clr] / (n + 1)
-        # rr
-        sm2 = np.array([0, 0, 0])
-        for it in range(min(n, w - pos)):
-            for clr in range(3):
-                sm2[clr] += img[pos + it, col][clr] * (1 - it / n)
+# h, w = im.size
+alpha = np.linspace(0.1, 1, border)
 
-        for it in range(n + pos - w):
-            for clr in range(3):
-                sm2[clr] += img[it, col][clr] * (1 - (it + w - pos) / n)
+for b in range(border):
+    row = img[:, b, :] * alpha[b] + img[:, w - border + b, :] * (1 - alpha[b])
+    img[:, b, :] = row
+    img[:, w - border + b, :] = row
 
-        for clr in range(3):
-            sm2[clr] = 2 * sm2[clr] / (n + 1)
+img = img[:, :w - border, :]
 
-        cur = np.array([img[pos, col][0], img[pos, col][1], img[pos, col][2]])
-        sm = (sm1 * a + sm2 * b) / 2
-        sm = (sm * (row / n) + cur * (1 - row / n))
-        img[pos, col] = (int(sm[0]), int(sm[1]), int(sm[2]))
-
-        # left
-        pos = n - row - 1
-        sm1 = np.array([0, 0, 0])
-        for it in range(n):
-            for clr in range(3):
-                sm1[clr] += img[pos + it, col][clr] * (1 - it / n)
-
-        for clr in range(3):
-            sm1[clr] /= (n + 1) / 2
-
-        sm2 = np.array([0, 0, 0])
-        for it in range(pos):
-            for clr in range(3):
-                sm2[clr] += img[pos - it, col][clr] * (1 - it / n)
-
-        for it in range(1, n - pos):
-            for clr in range(3):
-                sm2[clr] += img[w - it, col][clr] * (1 - (it + pos) / n)
-
-        for clr in range(3):
-            sm2[clr] /= (n + 1) / 2
-
-        # img[row, col] = (sm1 * a + sm2 * b) / 2
-        cur = np.array([img[pos, col][0], img[pos, col][1], img[pos, col][2]])
-        sm = (sm1 * a + sm2 * b) / 2
-        sm = (sm * (row / n) + cur * (1 - row / n))
-        img[pos, col] = (int(sm[0]), int(sm[1]), int(sm[2]))
-
-
-im.save('image_smooth.jpg', "JPEG")
+Image.fromarray(np.uint8(img)).save('tmp.jpg')

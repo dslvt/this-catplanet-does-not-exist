@@ -83,11 +83,11 @@ def manual_sphere(image_file):
 
     ffmpeg_fname = os.path.join(
         out_path, '{}_%0{}d{}'.format(prefix, padding, ext))
-    cmd = 'ffmpeg -f image2 -r {} -i {} -vcodec mpeg4 -y {}.mp4'.format(fps,
+    cmd = 'ffmpeg -f image2 -r {} -i {} -y {}.gif'.format(fps,
                                                                         ffmpeg_fname,
                                                                         prefix)
     subprocess.check_output(['bash', '-c', cmd])
     [os.remove(f) for f in os.listdir(out_path) if f.endswith(ext)]
 
 
-manual_sphere('./image_smooth.jpg')
+manual_sphere('tmp.jpg')
