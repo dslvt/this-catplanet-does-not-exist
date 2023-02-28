@@ -2,7 +2,8 @@
 .env
 /model/dataset/
 /generated
-
+/model/data
+/model/data/dataset/*
 
 
 

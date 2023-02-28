@@ -35,7 +35,7 @@ def manual_sphere(image_file):
     z = R * np.cos(thetagrid)
 
     # create figure
-    f = mlab.figure(size=(500, 500), bgcolor=(1, 1, 1))
+    f = mlab.figure(size=(256, 256), bgcolor=(1, 1, 1))
     # f.scene.movie_maker.record = True
 
     # create meshed sphere
@@ -57,9 +57,9 @@ def manual_sphere(image_file):
     # use 360 degrees, might cause seam but no fake data
     cylinder_mapper.prevent_seam = 0
     # mlab.view(180.0, 90.0, 17.269256680431845, [0.00010503, 0.00011263, 0.])
-    mlab.view(180.0, 90.0, 10, [0.00010503, 0.00011263, 0.])
+    mlab.view(180.0, 70.0, 10, [0.00010503, 0.00011263, 0.])
 
-    n_images = 36
+    n_images = 48
 
     padding = len(str(n_images))
     mlab.roll(90.0)
