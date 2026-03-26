@@ -2,8 +2,7 @@ import numpy as np
 from mayavi import mlab
 import os
 from tvtk.api import tvtk
-import math
-import matplotlib.pyplot as plt  # only for manipulating the input image
+import matplotlib.pyplot as plt
 import subprocess
 
 out_path = './'

@@ -1,0 +1,35 @@
+[project]
+name = "this-catplanet-does-not-exist"
+version = "0.1.0"
+description = "Telegram bot that generates cat planet GIFs"
+authors = [
+    {name = "sgdinmukhametov"}
+]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "python-telegram-bot>=20.0",
+    "python-dotenv",
+    "numpy",
+    "Pillow",
+    "matplotlib",
+    "mayavi",
+    "torch",
+    "torchvision",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ruff",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W"]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

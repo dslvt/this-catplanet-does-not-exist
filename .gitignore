@@ -1,9 +1,17 @@
 .DS_Store
 .env
+
+# Project data
 /model/dataset/
-/generated
-/model/data
-/model/data/dataset/*
+/model/data/
+/generated/
+
+# Generated/temporary files
+tmp.*
+*.gif
+*.mp4
+image_smooth*
+cosmos.jpeg
 
 
 

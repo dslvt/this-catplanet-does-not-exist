@@ -1,37 +1,10 @@
-from dotenv import dotenv_values
 import logging
-import pickle
-import random
-import face_recognition as fr
-import tqdm
-from PIL import Image
-import io
-import time
-import hashlib
-import os
-import re
+
+from dotenv import dotenv_values
+from telegram import Update
+from telegram.ext import Application, CommandHandler, ContextTypes
+
 from model.generator import generate_image
-import ray
-
-
-from telegram import __version__ as TG_VER
-
-try:
-    from telegram import __version_info__
-except ImportError:
-    __version_info__ = (0, 0, 0, 0, 0)  # type: ignore[assignment]
-
-if __version_info__ < (20, 0, 0, "alpha", 1):
-    raise RuntimeError(
-        f"This example is not compatible with your current PTB version {TG_VER}. To view the "
-        f"{TG_VER} version of this example, "
-        f"visit https://docs.python-telegram-bot.org/en/v{TG_VER}/examples.html"
-    )
-from telegram import ForceReply, Update, InlineKeyboardButton, InlineKeyboardMarkup
-from telegram.ext import Application, CommandHandler, ContextTypes, MessageHandler, filters, ConversationHandler, CallbackQueryHandler
-import random
-from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove, Update
-ray.init()
 
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
